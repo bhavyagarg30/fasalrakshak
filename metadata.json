@@ -1,0 +1,10 @@
+{
+  "name": "FasalRakshak",
+  "description": "AI-Powered Crop Disease & Pest Early-Warning Platform for Indian Farmers: Detect Today. Predict Tomorrow. Protect Before It Spreads.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

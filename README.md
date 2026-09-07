@@ -1,141 +1,214 @@
+<div align="center">
+
 # 🌱 FasalRakshak
 
 ### AI-Powered Crop Disease & Pest Early-Warning System
 
-> **Detect early. Alert nearby. Protect crops together.**
+**Detect early. Alert nearby. Protect crops together.**
 
-FasalRakshak is an AI-powered smart agriculture platform designed to help farmers **detect crop diseases and pests at an early stage, monitor crop health, identify high-risk areas, and receive actionable recommendations**.
+<p>
+  <img src="./fasalrakshak_premium_animated_readme.gif" width="100%" alt="FasalRakshak animated dashboard">
+</p>
 
-Instead of waiting until a disease spreads across an entire field, FasalRakshak combines **AI-based crop analysis, farm monitoring, risk mapping, alerts, and intelligent recommendations** to support faster and smarter decisions.
+<p>
+  <a href="https://fasalrakshak.ai.studio/">
+    <img src="https://img.shields.io/badge/🌐%20Live%20Demo-FasalRakshak-16A34A?style=for-the-badge">
+  </a>
+  <img src="https://img.shields.io/badge/AI-Powered-22C55E?style=for-the-badge">
+  <img src="https://img.shields.io/badge/AgriTech-Early%20Warning-065F46?style=for-the-badge">
+</p>
 
----
-
-## 🚨 The Problem
-
-Crop diseases and pest infestations can spread rapidly and cause significant losses before farmers are able to identify them.
-
-Traditional approaches often depend on:
-
-* Manual crop inspection
-* Delayed expert consultation
-* Lack of localized disease information
-* Limited monitoring of large agricultural areas
-* Reactive treatment after visible damage has already occurred
-
-Farmers need a system that can **identify risks early and provide understandable, actionable guidance.**
+</div>
 
 ---
 
-## 💡 Our Solution
+## 🌾 What is FasalRakshak?
 
-**FasalRakshak** acts as an intelligent early-warning layer for farms.
+**FasalRakshak** is an AI-powered agricultural intelligence platform designed to help farmers **detect crop diseases and pests early, assess crop risk, monitor farm health, and receive actionable recommendations.**
 
-The platform allows farmers to:
+Unlike a conventional crop-disease scanner, FasalRakshak focuses on the complete cycle:
 
-📷 **Scan crops** using images
-🤖 **Detect possible diseases and pests using AI**
-📊 **Monitor crop health and growth**
-🗺️ **Visualize farm zones and risk areas**
-🚨 **Receive early outbreak alerts**
-💧 **Monitor irrigation and soil conditions**
-🌱 **Get treatment and crop-care recommendations**
-🗣️ **Access multilingual and voice-friendly guidance**
+```text
+📷 Detect
+   ↓
+🤖 Analyze
+   ↓
+📊 Assess Risk
+   ↓
+🚨 Alert Nearby
+   ↓
+🌱 Recommend Action
+   ↓
+👨‍🔬 Expert Verification
+```
+
+Our goal is to move farming from **reactive treatment → predictive crop protection.**
 
 ---
 
-## ✨ Key Features
+## 🎯 The Problem
 
-### 🔍 AI Disease & Pest Detection
+Crop diseases and pest infestations can spread rapidly before farmers recognize the warning signs.
 
-Upload or capture an image of a crop/leaf and receive:
+Many existing solutions primarily answer:
 
-* Predicted disease/pest
+> **"What disease does this plant have?"**
+
+But farmers also need to know:
+
+* How serious is the problem?
+* Could it spread?
+* Which areas are at risk?
+* What should I do next?
+* Are nearby farms affected?
+* Can an agricultural expert verify the result?
+
+**FasalRakshak is designed to answer these questions together.**
+
+---
+
+# 💡 Our USP
+
+### More than disease detection.
+
+| Traditional Crop Scanner  | FasalRakshak                    |
+| ------------------------- | ------------------------------- |
+| 📷 Image scanning         | 📷 AI image analysis            |
+| 🦠 Disease identification | 🦠 Disease + pest detection     |
+| ❌ Mostly reactive         | 🚨 Early-warning focused        |
+| ❌ Limited farm context    | 🗺️ Farm-zone intelligence      |
+| ❌ Individual diagnosis    | 🌍 Community outbreak awareness |
+| ❌ Basic result            | 📊 Confidence + severity + risk |
+| ❌ Generic advice          | 🤖 Personalized recommendations |
+| ❌ No verification         | 👨‍🔬 Expert verification       |
+
+### FasalRakshak connects the dots.
+
+**AI Diagnosis + Farm Intelligence + Risk Prediction + Early Alerts + Community Protection**
+
+---
+
+# 🚀 Key Features
+
+### 🤖 AI Disease & Pest Detection
+
+Upload a crop or leaf image and receive:
+
+* Disease/pest prediction
 * AI confidence score
-* Severity level
+* Severity assessment
+* Risk classification
+* Possible alternative diagnoses
 * Recommended next steps
-* Treatment suggestions
-* Expert verification option
 
 ---
 
 ### 🗺️ Smart Farm Map
 
-Visualize different crop zones on an interactive farm map.
+Monitor individual farm zones through an interactive map.
 
 Each zone can display:
 
 * Crop type
 * Crop health
 * Planting date
-* Expected harvest date
-* Soil moisture
+* Harvest estimate
 * Temperature
 * Humidity
+* Soil moisture
 * Risk level
 
-Risk overlays can highlight potential outbreak hotspots.
+High-risk areas can be visualized using **outbreak heatmaps**.
 
 ---
 
-### 🚨 Early-Warning Alert System
+### 🚨 Early-Warning Alerts
 
-FasalRakshak focuses on **prevention instead of reaction**.
+FasalRakshak doesn't wait for widespread crop damage.
 
-The system can generate alerts based on:
+The platform can identify potential risks using:
 
-* Disease detection
-* Pest activity
-* Environmental conditions
-* Crop health deterioration
-* High-risk farm zones
-* Nearby outbreak signals
-
-Risk levels are represented as:
-
-🟢 **Low Risk**
-🟡 **Medium Risk**
-🔴 **High Risk**
-
----
-
-### 📈 Crop Health & Growth Analytics
-
-Farmers can monitor crop performance through visual dashboards containing:
-
-* Plant health score
-* Growth percentage
-* Historical trends
-* Maximum / minimum / average growth
-* Crop development stages
+```text
+Crop Images
+     +
+Weather Conditions
+     +
+Soil Conditions
+     +
+Crop Growth Stage
+     +
+Historical Patterns
+     +
+Nearby Outbreak Reports
+     ↓
+AI Risk Assessment
+     ↓
+Early Warning
+```
 
 ---
 
-### 🌦️ Weather & Environmental Monitoring
+### 🌍 Community Crop Shield
 
-The dashboard provides environmental information such as:
+One of the core differentiators of FasalRakshak.
 
-* Temperature
-* Humidity
-* Wind
-* Soil moisture
-* pH
-* Nutrient status
+When a potential outbreak is identified:
 
-This information can help connect environmental conditions with potential crop risks.
+```text
+        FARMER A
+           │
+      Disease detected
+           ↓
+       AI analysis
+           ↓
+      Risk assessment
+           ↓
+    ┌──────┴──────┐
+    ↓             ↓
+ FARM B         FARM C
+ Alert          Alert
+    ↓             ↓
+ Early          Early
+ inspection     inspection
+```
+
+Instead of protecting **one field**, the system aims to help protect an **entire farming community**.
+
+> **One detected field can help protect multiple nearby fields.**
+
+---
+
+### 📊 Crop Health Analytics
+
+Track:
+
+* Plant health
+* Growth trends
+* Crop stages
+* Maximum growth
+* Minimum growth
+* Average growth
+
+Visual dashboards make complex agricultural information easier to understand.
 
 ---
 
 ### 💧 Smart Irrigation Monitoring
 
-The platform provides an **Auto Watering** interface based on soil moisture conditions.
+Monitor soil moisture and irrigation conditions.
 
-Farmers can monitor watering status and upcoming irrigation schedules from the dashboard.
+Features include:
+
+* Auto-watering status
+* Soil moisture monitoring
+* Irrigation schedule
+* Watering recommendations
 
 ---
 
-### 🧪 Soil & Nutrient Monitoring
+### 🧪 Soil Intelligence
 
-Track important soil parameters including:
+Monitor:
 
 * Nitrogen
 * Phosphorus
@@ -143,307 +216,273 @@ Track important soil parameters including:
 * pH
 * Soil moisture
 
-The system provides simple indicators such as **Optimal**, **Moderate**, or **Needs Attention**.
+Simple indicators such as:
+
+🟢 Optimal
+🟡 Moderate
+🔴 Needs Attention
+
+make the information farmer-friendly.
 
 ---
 
 ### 🤖 AI Farm Assistant
 
-The integrated AI assistant provides farmer-friendly recommendations based on available crop and environmental information.
+Ask questions about your farm and receive simple recommendations.
 
 Example:
 
-> "Area 1 currently has good crop health. Soil moisture is optimal. Continue the current watering schedule and monitor nearby zones for early signs of leaf damage."
-
-The goal is to convert complex agricultural data into **simple and actionable advice**.
-
----
-
-### 🌐 Multilingual & Farmer-Friendly
-
-FasalRakshak is designed with accessibility in mind.
-
-Planned support includes:
-
-* Regional languages
-* Simple terminology
-* Voice guidance
-* Easy-to-understand alerts
-* Farmer-friendly recommendations
-
----
-
-### 📡 Offline-Friendly Design
-
-Agricultural areas may have unreliable internet connectivity.
-
-FasalRakshak therefore considers **offline-capable workflows**, allowing important farm information and previously available data to remain accessible even with limited connectivity.
-
----
-
-## 🎯 What Makes FasalRakshak Different?
-
-Existing crop-disease applications often focus primarily on **image-based disease identification**.
-
-FasalRakshak aims to go beyond diagnosis.
-
-### Instead of:
-
-**"Your plant has Disease X."**
-
-### FasalRakshak aims to provide:
-
-**Detect → Assess → Predict → Alert → Recommend → Verify**
-
-The platform combines:
-
-**AI Diagnosis + Farm Mapping + Environmental Data + Risk Prediction + Early Alerts + AI Assistance**
-
-This makes FasalRakshak an **early-warning and decision-support system**, rather than only a disease detection tool.
-
----
-
-## 🧠 System Workflow
-
 ```text
-        FARMER
-           │
-           ▼
-    Capture / Upload Image
-           │
-           ▼
-      AI Analysis
-           │
-      ┌────┴────┐
-      ▼         ▼
-   Disease     Pest
-   Detection   Detection
-      │         │
-      └────┬────┘
-           ▼
-     Confidence Score
-           │
-           ▼
-      Severity Level
-           │
-           ▼
-    Risk Assessment
-           │
-      ┌────┴─────┐
-      ▼          ▼
- Farm Zone    Environment
-   Data          Data
-      │          │
-      └────┬─────┘
-           ▼
-    Early-Warning Engine
-           │
-           ▼
-     Farmer Alert
-           │
-           ▼
-   AI Recommendation
-           │
-           ▼
-     Expert Verification
+Farmer:
+"Should I water Area 1 today?"
+
+AI Assistant:
+"Soil moisture is currently optimal.
+Continue the existing watering schedule
+and reassess after the next weather update."
+```
+
+The assistant can also provide recommendations in supported regional languages.
+
+---
+
+### 👨‍🔬 Expert Verification
+
+AI predictions are treated as **preliminary assessments**, not guaranteed diagnoses.
+
+Farmers can request:
+
+**AI Assessment → Expert Verification → Verified Recommendation**
+
+This creates an additional layer of trust.
+
+---
+
+### 🌐 Multilingual & Voice Support
+
+Designed for diverse farming communities.
+
+Planned/available interface support includes:
+
+* English
+* Hindi
+* Punjabi
+* Marathi
+* Bengali
+* Tamil
+* Telugu
+
+Voice guidance can convert recommendations into easy-to-understand spoken instructions.
+
+---
+
+### 📡 Offline-Friendly
+
+Agricultural connectivity can be unreliable.
+
+FasalRakshak is designed around an offline-friendly experience with support for:
+
+* Cached farm information
+* Saved recommendations
+* Recent alerts
+* Draft scan results
+* Synchronization when connectivity returns
+
+---
+
+# 🧠 How FasalRakshak Works
+
+```mermaid
+flowchart LR
+    A[📷 Crop Image] --> B[🤖 AI Analysis]
+    B --> C[🦠 Disease / Pest Detection]
+    C --> D[📊 Confidence & Severity]
+    D --> E[🧠 Risk Assessment]
+
+    F[🌦️ Weather] --> E
+    G[🧪 Soil Data] --> E
+    H[🌱 Crop Stage] --> E
+    I[📍 Nearby Reports] --> E
+
+    E --> J[🚨 Early Warning]
+    J --> K[👨‍🌾 Farmer]
+    J --> L[🌍 Nearby Farms]
+
+    K --> M[🤖 AI Recommendation]
+    M --> N[👨‍🔬 Expert Verification]
 ```
 
 ---
 
-## 🖥️ Dashboard
+# 🖥️ Platform Modules
 
-The FasalRakshak dashboard provides a centralized view of farm conditions.
-
-It includes:
-
-* Weather overview
-* Plant health score
-* Active crop zones
-* Soil nutrient status
-* Smart irrigation
-* pH monitoring
-* Fertilizer application level
-* Interactive farm map
-* Growth analytics
-* AI assistant
-* Disease scanner
-* Crop risk map
-* Outbreak alerts
-
----
-
-## 🧩 Major Modules
-
-| Module             | Purpose                           |
-| ------------------ | --------------------------------- |
-| 🏠 Dashboard       | Overall farm health overview      |
-| 🗺️ Fields Map     | Monitor individual crop zones     |
-| 📷 Disease Scan    | AI-based disease/pest detection   |
-| 🚨 Alerts          | Early outbreak notifications      |
-| 📊 Analytics       | Crop growth and health trends     |
-| 🤖 AI Assistant    | Personalized farm recommendations |
-| 🌱 Soil Monitoring | Soil and nutrient insights        |
-| 💧 Irrigation      | Watering monitoring               |
-| ⚙️ Settings        | User and system preferences       |
+```text
+FasalRakshak
+│
+├── 🏠 Dashboard
+│
+├── 🗺️ Fields Map
+│
+├── 📷 Disease & Pest Scan
+│
+├── 🚨 Risk & Outbreak Intelligence
+│
+├── 🔔 Alert Center
+│
+├── 📊 Crop Analytics
+│
+├── 🤖 AI Farm Assistant
+│
+└── ⚙️ Settings
+```
 
 ---
 
-## 🛠️ Technology Stack
+# 📸 Product Preview
+
+### Smart Farm Dashboard
+
+<p align="center">
+  <img src="./fasalrakshak_premium_animated_readme.gif" width="95%">
+</p>
+
+---
+
+# 🛠️ Technology
+
+The application is structured to support a modern AI-powered web architecture.
 
 ### Frontend
 
-* HTML
-* CSS
-* JavaScript
-* Modern responsive UI
+![React](https://img.shields.io/badge/React-20232A?style=flat-square\&logo=react\&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square\&logo=typescript\&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square\&logo=tailwindcss\&logoColor=white)
 
 ### AI / ML
 
-* AI-based crop image analysis
-* Disease & pest classification
-* Confidence-based predictions
-* Risk assessment
+![AI](https://img.shields.io/badge/AI-Crop%20Intelligence-16A34A?style=flat-square)
+![Computer Vision](https://img.shields.io/badge/Computer%20Vision-22C55E?style=flat-square)
 
-### Data & Monitoring
+### Platform
 
-* Crop health data
-* Weather data
-* Soil parameters
-* Farm zone information
-* Geographical risk information
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square\&logo=github\&logoColor=white)
 
-### Deployment
-
-* AI-assisted web development
-* GitHub
-* Web-based deployment
-
-> The technology stack may evolve as the project moves from prototype to a fully integrated production system.
+> Technology components may evolve as the prototype develops into a fully integrated production system.
 
 ---
 
-## 📸 Product Preview
+# 🌱 Farmer-First Design
 
-### FasalRakshak Dashboard
+FasalRakshak is designed around a simple principle:
 
-*Add screenshots of the dashboard here.*
+### Complex technology should produce simple decisions.
+
+Instead of overwhelming farmers with technical data, the platform focuses on:
+
+**What happened?**
+
+**How serious is it?**
+
+**What could happen next?**
+
+**What should I do?**
+
+**Who else should be warned?**
+
+---
+
+# 📈 Example Risk Levels
+
+### 🟢 Low Risk
+
+Crop appears healthy.
+
+**Action:** Continue normal monitoring.
+
+### 🟡 Medium Risk
+
+Early warning indicators detected.
+
+**Action:** Inspect the affected area.
+
+### 🔴 High Risk
+
+Strong indicators of disease/pest activity.
+
+**Action:** Take recommended action and consider expert verification.
+
+---
+
+# 🎨 Product Philosophy
+
+FasalRakshak follows four principles:
+
+### 01 — Detect Early
+
+Identify potential problems before visible damage becomes widespread.
+
+### 02 — Explain Clearly
+
+Convert AI predictions into farmer-friendly information.
+
+### 03 — Alert Responsibly
+
+Notify relevant nearby areas without exposing private farmer information.
+
+### 04 — Act Together
+
+Encourage early intervention and community-level crop protection.
+
+---
+
+# 🚀 Future Roadmap
+
+* [ ] Real-time crop disease ML model
+* [ ] Real-time pest detection
+* [ ] IoT soil sensors
+* [ ] Hyperlocal weather integration
+* [ ] Satellite crop monitoring
+* [ ] Advanced outbreak prediction
+* [ ] Community outbreak network
+* [ ] Agricultural expert network
+* [ ] Full regional-language support
+* [ ] Voice-first farmer assistant
+* [ ] Advanced offline synchronization
+* [ ] Android application
+* [ ] Government/agri-department integration
+
+---
+
+# 🌍 Vision
+
+Agriculture should not have to wait for a disease to become visible before taking action.
+
+FasalRakshak aims to create a future where:
 
 ```text
-Dashboard
- ├── Weather
- ├── Plant Health
- ├── Crop Zones
- ├── Soil Status
- ├── Farm Map
- ├── Growth Analytics
- ├── AI Assistant
- └── Alerts
+One farmer detects a risk
+          ↓
+AI understands it
+          ↓
+The system predicts potential spread
+          ↓
+Nearby farmers are warned
+          ↓
+Farmers act early
+          ↓
+Crop losses are reduced
 ```
 
----
-
-## 🚀 Future Scope
-
-FasalRakshak can be extended with:
-
-* 📱 Android application
-* 🛰️ Satellite-based crop monitoring
-* 🌦️ Hyperlocal weather prediction
-* 📡 IoT soil sensors
-* 🐛 Pest population prediction
-* 🧠 Advanced disease prediction models
-* 📍 Community-based outbreak reporting
-* 👨‍🌾 Agricultural expert network
-* 🗣️ Regional-language voice assistant
-* 📶 Advanced offline synchronization
-* 📈 Historical farm intelligence
-* 🔔 Hyperlocal outbreak notifications
+## 🌱 Detect early. Alert nearby. Protect crops together.
 
 ---
 
-## 🌍 Social Impact
+<div align="center">
 
-FasalRakshak aims to help farmers move from **reactive farming to preventive farming**.
+### Built with 🌱 AI for smarter and more preventive agriculture.
 
-Early detection can help farmers:
+**FasalRakshak**
 
-* Reduce crop losses
-* Avoid unnecessary pesticide usage
-* Respond faster to outbreaks
-* Make better irrigation decisions
-* Monitor large farms more efficiently
-* Improve crop management
-* Protect neighboring farms from potential outbreaks
+[🌐 Live Demo](https://fasalrakshak.ai.studio/)
 
----
-
-## 🎯 Vision
-
-Our vision is to build a **community-powered agricultural early-warning network** where a disease detected in one area can help warn farmers in nearby areas before the outbreak spreads further.
-
-> **One detected field can protect an entire farming community.**
-
----
-
-## 👥 Target Users
-
-* 👨‍🌾 Farmers
-* 🌾 Agricultural cooperatives
-* 🧑‍🔬 Agricultural experts
-* 🏢 Government agricultural departments
-* 🚜 Farm management organizations
-* 🌱 Agri-tech organizations
-
----
-
-## 🔐 Responsible AI
-
-AI predictions are intended to support farmers and should not replace professional agricultural expertise.
-
-FasalRakshak therefore includes an **expert verification concept** for situations where additional validation is required.
-
----
-
-## 📌 Project Status
-
-🟢 **Prototype / MVP**
-
-The current version focuses on demonstrating the core FasalRakshak experience, including the farm dashboard, crop monitoring, disease scanning interface, risk visualization, alerts, and AI-assisted recommendations.
-
----
-
-## 🤝 Contributing
-
-Contributions, ideas, and feedback are welcome.
-
-If you would like to contribute:
-
-```bash
-# Clone the repository
-git clone <repository-url>
-
-# Enter the project directory
-cd fasalrakshak
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm run dev
-```
-
----
-
-## 📄 License
-
-This project is currently developed as an academic / hackathon project.
-
-License information will be added as the project progresses.
-
----
-
-# 🌱 FasalRakshak
-
-### Detect early. Alert nearby. Protect crops together.
-
-**Building smarter, safer and more preventive agriculture with AI.**
+</div>

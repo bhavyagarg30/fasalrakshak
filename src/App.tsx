@@ -5,6 +5,8 @@ import { MobileNav } from './components/MobileNav';
 
 // Pages
 import { DashboardPage } from './pages/DashboardPage';
+import { DamageAssessmentPage } from './pages/DamageAssessmentPage';
+import { KnowledgeHubPage } from './pages/KnowledgeHubPage';
 import { ScanCropPage } from './pages/ScanCropPage';
 import { DiagnosisPage } from './pages/DiagnosisPage';
 import { RiskIntelligencePage } from './pages/RiskIntelligencePage';
@@ -23,6 +25,7 @@ import { SettingsPage } from './pages/SettingsPage';
 // Data & Types
 import { INITIAL_CROPS, OUTBREAK_CLUSTERS, ALERTS_DATA } from './data/demoData';
 import { CropInfo, OutbreakCluster, AlertItem, DiagnosisResult, Language, PageId } from './types';
+import { getSavedLanguage, saveLanguage } from './i18n';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState<PageId>('dashboard');
@@ -30,9 +33,14 @@ export function App() {
   const [selectedCrop, setSelectedCrop] = useState<CropInfo>(INITIAL_CROPS[0]);
   const [selectedCluster, setSelectedCluster] = useState<OutbreakCluster>(OUTBREAK_CLUSTERS[0]);
   const [alerts, setAlerts] = useState<AlertItem[]>(ALERTS_DATA);
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Language>(getSavedLanguage());
   const [isOpenMobile, setIsOpenMobile] = useState<boolean>(false);
   const [watchlistedClusterIds, setWatchlistedClusterIds] = useState<string[]>(['c-1']);
+
+  const handleLanguageChange = (newLang: Language) => {
+    setLanguageState(newLang);
+    saveLanguage(newLang);
+  };
 
   // Latest diagnosis result (for diagnosis screen)
   const [latestDiagnosis, setLatestDiagnosis] = useState<DiagnosisResult>({
@@ -105,6 +113,7 @@ export function App() {
         return (
           <DashboardPage
             crops={crops}
+            language={language}
             onNavigate={setCurrentPage}
             onSelectCrop={handleSelectCrop}
             onSelectCluster={(cluster) => {
@@ -114,9 +123,26 @@ export function App() {
           />
         );
 
+      case 'damage-assessment':
+        return (
+          <DamageAssessmentPage
+            language={language}
+            onNavigate={setCurrentPage}
+          />
+        );
+
+      case 'knowledge-hub':
+        return (
+          <KnowledgeHubPage
+            language={language}
+            onNavigate={setCurrentPage}
+          />
+        );
+
       case 'scan':
         return (
           <ScanCropPage
+            language={language}
             onScanCompleted={handleScanCompleted}
             onNavigate={setCurrentPage}
           />
@@ -126,6 +152,7 @@ export function App() {
         return (
           <DiagnosisPage
             diagnosis={latestDiagnosis}
+            language={language}
             onNavigate={setCurrentPage}
           />
         );
@@ -155,6 +182,7 @@ export function App() {
         return (
           <AlertsPage
             alerts={alerts}
+            language={language}
             onMarkAsRead={handleMarkAlertAsRead}
             onNavigate={setCurrentPage}
           />
@@ -164,6 +192,7 @@ export function App() {
         return (
           <MyCropsPage
             crops={crops}
+            language={language}
             onSelectCrop={handleSelectCrop}
             onAddCrop={handleAddCrop}
           />
@@ -173,6 +202,7 @@ export function App() {
         return (
           <CropDetailsPage
             crop={selectedCrop}
+            language={language}
             onNavigate={setCurrentPage}
           />
         );
@@ -181,28 +211,28 @@ export function App() {
         return (
           <ActionPlanPage
             language={language}
-            onLanguageChange={setLanguage}
+            onLanguageChange={handleLanguageChange}
             onNavigate={setCurrentPage}
           />
         );
 
       case 'community':
-        return <CommunityPage onNavigate={setCurrentPage} />;
+        return <CommunityPage language={language} onNavigate={setCurrentPage} />;
 
       case 'simulator':
-        return <SimulatorPage onNavigate={setCurrentPage} />;
+        return <SimulatorPage language={language} onNavigate={setCurrentPage} />;
 
       case 'expert':
-        return <ExpertVerificationPage onNavigate={setCurrentPage} />;
+        return <ExpertVerificationPage language={language} onNavigate={setCurrentPage} />;
 
       case 'profile':
-        return <ProfilePage onNavigate={setCurrentPage} />;
+        return <ProfilePage language={language} onNavigate={setCurrentPage} />;
 
       case 'settings':
         return (
           <SettingsPage
             language={language}
-            onLanguageChange={setLanguage}
+            onLanguageChange={handleLanguageChange}
           />
         );
 
@@ -210,6 +240,7 @@ export function App() {
         return (
           <DashboardPage
             crops={crops}
+            language={language}
             onNavigate={setCurrentPage}
             onSelectCrop={handleSelectCrop}
             onSelectCluster={handleSelectCluster}
@@ -225,6 +256,7 @@ export function App() {
         <Sidebar
           currentPage={currentPage}
           onNavigate={setCurrentPage}
+          language={language}
           unreadAlertCount={unreadAlertCount}
           isOpenMobile={isOpenMobile}
           onCloseMobile={() => setIsOpenMobile(false)}
@@ -236,7 +268,7 @@ export function App() {
             currentPage={currentPage}
             onNavigate={setCurrentPage}
             language={language}
-            onLanguageChange={setLanguage}
+            onLanguageChange={handleLanguageChange}
             unreadAlertCount={unreadAlertCount}
             onToggleMobileMenu={() => setIsOpenMobile(!isOpenMobile)}
           />
@@ -252,9 +284,11 @@ export function App() {
         currentPage={currentPage}
         onNavigate={setCurrentPage}
         unreadAlertCount={unreadAlertCount}
+        language={language}
       />
     </div>
   );
 }
 
 export default App;
+

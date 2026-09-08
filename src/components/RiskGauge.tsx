@@ -1,4 +1,6 @@
 import React from 'react';
+import { Language } from '../types';
+import { t, getSavedLanguage } from '../i18n';
 
 interface RiskGaugeProps {
   score: number; // 0-100 (e.g. 72)
@@ -7,47 +9,52 @@ interface RiskGaugeProps {
   sublabel?: string;
   showConfidence?: boolean;
   confidence?: number;
+  language?: Language;
 }
 
 export const RiskGauge: React.FC<RiskGaugeProps> = ({
   score,
   size = 'lg',
-  label = 'HIGH RISK',
-  sublabel = 'YOUR FARM RISK',
+  label,
+  sublabel,
   showConfidence = true,
   confidence = 91,
+  language,
 }) => {
+  const currentLang = language || getSavedLanguage();
   const normalizedScore = Math.min(100, Math.max(0, score));
 
-  // Determine color based on threshold
+  // Determine color and localized label based on threshold
   let strokeColor = '#16A34A'; // Green
   let textColor = 'text-green-600';
   let badgeBg = 'bg-green-50 text-green-700 border-green-200';
-  let riskText = 'LOW RISK';
+  let defaultRiskText = currentLang === 'hi' ? 'कम जोखिम' : 'LOW RISK';
 
   if (normalizedScore > 80) {
     strokeColor = '#DC2626'; // Deep Red
     textColor = 'text-red-700';
     badgeBg = 'bg-red-100 text-red-800 border-red-300';
-    riskText = 'CRITICAL RISK';
+    defaultRiskText = currentLang === 'hi' ? 'अति गंभीर जोखिम' : 'CRITICAL RISK';
   } else if (normalizedScore > 60) {
     strokeColor = '#EF4444'; // Red
     textColor = 'text-red-600';
     badgeBg = 'bg-red-50 text-red-700 border-red-200';
-    riskText = 'HIGH RISK';
+    defaultRiskText = currentLang === 'hi' ? 'उच्च जोखिम' : 'HIGH RISK';
   } else if (normalizedScore > 30) {
     strokeColor = '#F59E0B'; // Amber
     textColor = 'text-amber-600';
     badgeBg = 'bg-amber-50 text-amber-700 border-amber-200';
-    riskText = 'MEDIUM RISK';
+    defaultRiskText = currentLang === 'hi' ? 'मध्यम जोखिम' : 'MEDIUM RISK';
   }
+
+  const displaySublabel = sublabel || t('farmRiskTitle', currentLang);
+  const displayBadgeText = label || defaultRiskText;
 
   // Dimensions
   const radius = size === 'lg' ? 88 : size === 'md' ? 64 : 44;
   const strokeWidth = size === 'lg' ? 14 : size === 'md' ? 10 : 8;
   const circumference = 2 * Math.PI * radius;
-  // Use a 240-degree arc for an open gauge or 360 ring
-  // A clean 260-degree speedometer arch gives premium dashboard feel
+  // Speedometer arch
   const arcLength = circumference * 0.75;
   const strokeDashoffset = arcLength - (arcLength * normalizedScore) / 100;
 
@@ -56,9 +63,9 @@ export const RiskGauge: React.FC<RiskGaugeProps> = ({
 
   return (
     <div className="flex flex-col items-center text-center">
-      {sublabel && (
+      {displaySublabel && (
         <span className="text-[11px] font-bold tracking-widest text-gray-500 uppercase mb-2">
-          {sublabel}
+          {displaySublabel}
         </span>
       )}
 
@@ -110,7 +117,7 @@ export const RiskGauge: React.FC<RiskGaugeProps> = ({
           <span
             className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase mt-1 border ${badgeBg}`}
           >
-            {label || riskText}
+            {displayBadgeText}
           </span>
         </div>
       </div>
@@ -119,7 +126,7 @@ export const RiskGauge: React.FC<RiskGaugeProps> = ({
         <div className="mt-3 flex items-center space-x-2 bg-slate-50 border border-slate-200/80 px-3 py-1.5 rounded-xl">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-xs font-semibold text-slate-700">
-            AI Confidence: <strong className="text-slate-900">{confidence}%</strong>
+            {t('aiConfidence', currentLang)}: <strong className="text-slate-900">{confidence}%</strong>
           </span>
         </div>
       )}

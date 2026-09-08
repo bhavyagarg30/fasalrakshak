@@ -1,5 +1,7 @@
 export type PageId =
   | 'dashboard'
+  | 'damage-assessment'
+  | 'knowledge-hub'
   | 'scan'
   | 'diagnosis'
   | 'risk'
@@ -15,7 +17,25 @@ export type PageId =
   | 'profile'
   | 'settings';
 
-export type Language = 'en' | 'hi' | 'pa' | 'mr' | 'ta';
+export type Language =
+  | 'en' // English
+  | 'hi' // हिन्दी (Hindi)
+  | 'pa' // ਪੰਜਾਬੀ (Punjabi)
+  | 'bn' // বাংলা (Bengali)
+  | 'mr' // मराठी (Marathi)
+  | 'gu' // ગુજરાતી (Gujarati)
+  | 'ta' // தமிழ் (Tamil)
+  | 'te' // తెలుగు (Telugu)
+  | 'kn' // ಕನ್ನಡ (Kannada)
+  | 'ml' // മലയാളം (Malayalam)
+  | 'or'; // ଓଡ଼ିଆ (Odia)
+
+export interface LanguageOption {
+  code: Language;
+  name: string;
+  nativeName: string;
+  region: string;
+}
 
 export interface CropInfo {
   id: string;
@@ -120,4 +140,162 @@ export interface DiagnosisResult {
   ecoFriendlyOptions: string[];
   expertRequired: boolean;
   leafImageUrl?: string;
+}
+
+// ---------------------------------------------------------------------------
+// NEW DAMAGE ASSESSMENT & PMFBY CLAIM ASSISTANT TYPES
+// ---------------------------------------------------------------------------
+
+export type VisibleLeafSeverity = 'Low' | 'Moderate' | 'Severe';
+
+export interface PossibleCause {
+  cause: string;
+  likelihood: 'Likely' | 'Possible' | 'Unlikely';
+  explanation: string;
+}
+
+export type ChemicalAppliedOption =
+  | 'Fertilizer'
+  | 'Pesticide'
+  | 'Herbicide'
+  | 'Fungicide'
+  | 'No'
+  | "Don't know";
+
+export interface ChemicalInvestigation {
+  suspectedCategory?:
+    | 'Fertilizer injury'
+    | 'Herbicide exposure'
+    | 'Pesticide injury'
+    | 'Excess application'
+    | 'Spray drift'
+    | 'Chemical burn';
+  appliedChemical: ChemicalAppliedOption;
+  appliedWhen: string;
+  note: string;
+}
+
+export type AffectedPlantsOption =
+  | 'Less than 10%'
+  | '10–25%'
+  | '25–50%'
+  | 'More than 50%'
+  | "Don't know";
+
+export type RecentEventOption =
+  | 'Drought'
+  | 'Heavy rainfall'
+  | 'Flooding'
+  | 'Pest attack'
+  | 'Disease outbreak'
+  | 'Hailstorm'
+  | 'Strong wind / storm'
+  | 'Other'
+  | "Don't know";
+
+export interface FieldContextData {
+  crop: string;
+  fieldSize: string;
+  affectedPlantsPct: AffectedPlantsOption;
+  noticedWhen: string;
+  recentEvent: RecentEventOption;
+  state: string;
+  district: string;
+  village: string;
+  surveyNumber?: string;
+}
+
+export type FieldRiskLevel = 'Low' | 'Moderate' | 'High' | 'Very High';
+
+export interface EstimatedFieldRisk {
+  level: FieldRiskLevel;
+  reasoning: string;
+  recommendedNextStep: string;
+}
+
+export interface DamageRecoveryPlan {
+  immediateAction: string[];
+  next24Hours: string[];
+  next3Days: string[];
+  whatToMonitor: string[];
+  whatNotToDo: string[];
+}
+
+export type PmfbyLossEventOption =
+  | 'Drought / dry spell'
+  | 'Pest attack'
+  | 'Disease'
+  | 'Flood / inundation'
+  | 'Hailstorm'
+  | 'Storm / cyclone'
+  | 'Other eligible loss event';
+
+export interface EvidenceChecklistState {
+  cropPhoto: boolean;
+  dateTime: boolean;
+  location: boolean;
+  cropName: boolean;
+  affectedArea: boolean;
+  dateOfLoss: boolean;
+  damageDescription: boolean;
+  policyNumber: boolean;
+}
+
+export interface DamageAssessmentSession {
+  id: string;
+  leafImageUrl: string;
+  leafImageName?: string;
+  crop: string;
+  likelyProblem: string;
+  aiConfidence: number;
+  visibleLeafSeverity: VisibleLeafSeverity;
+  visibleDamageDescription: string;
+  possibleCauses: PossibleCause[];
+  chemicalInvestigation: ChemicalInvestigation;
+  fieldContext: FieldContextData;
+  fieldRisk: EstimatedFieldRisk;
+  recoveryPlan: DamageRecoveryPlan;
+  lossEvent: PmfbyLossEventOption;
+  lossDateTime: string;
+  policyNumber?: string;
+  farmerName: string;
+  farmerPhone: string;
+  evidenceChecklist: EvidenceChecklistState;
+}
+
+// ---------------------------------------------------------------------------
+// KNOWLEDGE HUB / BLOG TYPES
+// ---------------------------------------------------------------------------
+
+export type BlogCategory =
+  | 'Crop Health'
+  | 'Pest Management'
+  | 'Disease Management'
+  | 'Weather'
+  | 'Irrigation'
+  | 'Soil'
+  | 'Technology'
+  | 'Government Schemes'
+  | 'Crop Insurance'
+  | 'Sustainable Farming';
+
+export interface BlogPost {
+  id: string;
+  category: BlogCategory;
+  imageUrl: string;
+  readTime: string;
+  date: string;
+  titleKey: string;
+  descKey: string;
+  contentKey: string;
+  // Fallbacks for languages
+  titles: Partial<Record<Language, string>>;
+  descriptions: Partial<Record<Language, string>>;
+  sections: Array<{
+    heading: Partial<Record<Language, string>>;
+    paragraphs: Partial<Record<Language, string[]>>;
+    tips?: Partial<Record<Language, string[]>>;
+    doList?: Partial<Record<Language, string[]>>;
+    dontList?: Partial<Record<Language, string[]>>;
+  }>;
 }

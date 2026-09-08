@@ -13,13 +13,16 @@ import {
   Sparkles,
   Download,
 } from 'lucide-react';
-import { PageId } from '../types';
+import { PageId, Language } from '../types';
+import { getSavedLanguage } from '../i18n';
 
 interface ExpertVerificationPageProps {
+  language?: Language;
   onNavigate: (page: PageId) => void;
 }
 
 export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
+  language = getSavedLanguage(),
   onNavigate,
 }) => {
   const [activeStatus, setActiveStatus] = useState<'Verified' | 'Under Review' | 'Pending'>('Verified');
@@ -29,8 +32,8 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
     if (navigator.share) {
       navigator
         .share({
-          title: 'FasalRakshak KVK Expert Verification Certificate',
-          text: 'Verified field report for Wheat Brown Rust from Krishi Vigyan Kendra, Sonipat.',
+          title: language === 'hi' ? 'फसलरक्षक KVK विशेषज्ञ सत्यापन प्रमाण पत्र' : 'FasalRakshak KVK Expert Verification Certificate',
+          text: language === 'hi' ? 'कृषि विज्ञान केंद्र, सोनीपत से गेहूं भूरा रतुआ की सत्यापित फील्ड रिपोर्ट।' : 'Verified field report for Wheat Brown Rust from Krishi Vigyan Kendra, Sonipat.',
           url: window.location.href,
         })
         .catch(() => {});
@@ -46,13 +49,15 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <span className="text-xs font-black uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
-            Institutional Validation
+            {language === 'hi' ? 'संस्थागत सत्यापन' : 'Institutional Validation'}
           </span>
           <h2 className="text-3xl font-black text-slate-900 mt-2">
-            EXPERT VERIFICATION & KVK AUDIT
+            {language === 'hi' ? 'विशेषज्ञ सत्यापन एवं KVK ऑडिट' : 'EXPERT VERIFICATION & KVK AUDIT'}
           </h2>
           <p className="text-slate-500 text-xs font-medium mt-1">
-            Official diagnosis certificates issued by Indian Council of Agricultural Research (ICAR) network.
+            {language === 'hi'
+              ? 'भारतीय कृषि अनुसंधान परिषद (ICAR) नेटवर्क द्वारा जारी आधिकारिक रोग निदान प्रमाण पत्र।'
+              : 'Official diagnosis certificates issued by Indian Council of Agricultural Research (ICAR) network.'}
           </p>
         </div>
 
@@ -62,13 +67,17 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
             <button
               key={s}
               onClick={() => setActiveStatus(s)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all ${
+              className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 activeStatus === s
                   ? 'bg-emerald-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              {s}
+              {s === 'Verified'
+                ? language === 'hi' ? 'सत्यापित' : 'Verified'
+                : s === 'Under Review'
+                ? language === 'hi' ? 'समीक्षाधीन' : 'Under Review'
+                : language === 'hi' ? 'प्रतीक्षारत' : 'Pending'}
             </button>
           ))}
         </div>
@@ -89,10 +98,12 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
             </div>
             <div>
               <h3 className="text-base font-black text-slate-900 uppercase tracking-tight">
-                Krishi Vigyan Kendra (KVK), Sonipat
+                {language === 'hi' ? 'कृषि विज्ञान केंद्र (KVK), सोनीपत' : 'Krishi Vigyan Kendra (KVK), Sonipat'}
               </h3>
               <p className="text-xs text-slate-500">
-                ICAR Affiliated Agro-Diagnostic Station • Haryana Agricultural University
+                {language === 'hi'
+                  ? 'ICAR संबद्ध कृषि-निदान केंद्र • चौधरी चरण सिंह हरियाणा कृषि विश्वविद्यालय'
+                  : 'ICAR Affiliated Agro-Diagnostic Station • Haryana Agricultural University'}
               </p>
             </div>
           </div>
@@ -101,17 +112,17 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
             {activeStatus === 'Verified' ? (
               <span className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-black uppercase tracking-wider">
                 <CheckCircle2 size={14} className="text-emerald-700" />
-                <span>OFFICIALLY VERIFIED</span>
+                <span>{language === 'hi' ? 'आधिकारिक रूप से सत्यापित' : 'OFFICIALLY VERIFIED'}</span>
               </span>
             ) : activeStatus === 'Under Review' ? (
               <span className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 text-xs font-black uppercase tracking-wider">
                 <Clock size={14} className="text-amber-700" />
-                <span>UNDER REVIEW BY KVK</span>
+                <span>{language === 'hi' ? 'KVK द्वारा समीक्षाधीन' : 'UNDER REVIEW BY KVK'}</span>
               </span>
             ) : (
               <span className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-700 border border-slate-300 text-xs font-black uppercase tracking-wider">
                 <Clock size={14} />
-                <span>PENDING QUEUE</span>
+                <span>{language === 'hi' ? 'प्रतीक्षा कतार' : 'PENDING QUEUE'}</span>
               </span>
             )}
           </div>
@@ -122,27 +133,33 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
             <div className="bg-[#F7FAF7] p-3.5 rounded-2xl border border-gray-100">
               <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider block">
-                Certificate Ref
+                {language === 'hi' ? 'प्रमाण पत्र संदर्भ' : 'Certificate Ref'}
               </span>
               <p className="font-mono font-bold text-slate-900 mt-0.5">KVK-SNP-2025-0842</p>
             </div>
             <div className="bg-[#F7FAF7] p-3.5 rounded-2xl border border-gray-100">
               <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider block">
-                Target Plot
+                {language === 'hi' ? 'चिह्नित खेत / प्लॉट' : 'Target Plot'}
               </span>
-              <p className="font-bold text-slate-900 mt-0.5">Wheat (Plot B, Murthal)</p>
+              <p className="font-bold text-slate-900 mt-0.5">
+                {language === 'hi' ? 'गेहूं (प्लॉट B, मुरथल)' : 'Wheat (Plot B, Murthal)'}
+              </p>
             </div>
             <div className="bg-[#F7FAF7] p-3.5 rounded-2xl border border-gray-100">
               <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider block">
-                Diagnosis
+                {language === 'hi' ? 'रोग निदान' : 'Diagnosis'}
               </span>
-              <p className="font-bold text-red-600 mt-0.5">Brown Rust (Early)</p>
+              <p className="font-bold text-red-600 mt-0.5">
+                {language === 'hi' ? 'भूरा रतुआ (प्रारंभिक)' : 'Brown Rust (Early)'}
+              </p>
             </div>
             <div className="bg-[#F7FAF7] p-3.5 rounded-2xl border border-gray-100">
               <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider block">
-                Verification Date
+                {language === 'hi' ? 'सत्यापन तिथि' : 'Verification Date'}
               </span>
-              <p className="font-bold text-slate-900 mt-0.5">Today, 09:30 AM</p>
+              <p className="font-bold text-slate-900 mt-0.5">
+                {language === 'hi' ? 'आज, सुबह 09:30 बजे' : 'Today, 09:30 AM'}
+              </p>
             </div>
           </div>
 
@@ -151,13 +168,15 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
             <div className="flex items-start justify-between">
               <div>
                 <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                  Assigned KVK Senior Agronomist
+                  {language === 'hi' ? 'प्रभारी KVK वरिष्ठ कृषि वैज्ञानिक' : 'Assigned KVK Senior Agronomist'}
                 </span>
                 <h4 className="text-base font-black text-slate-900 mt-0.5">
-                  Dr. Harpreet Singh, Ph.D. (Plant Pathology)
+                  {language === 'hi' ? 'डॉ. हरप्रीत सिंह, Ph.D. (पादप रोग विज्ञान)' : 'Dr. Harpreet Singh, Ph.D. (Plant Pathology)'}
                 </h4>
                 <p className="text-xs text-slate-500">
-                  Head, Cereal Disease Surveillance Unit • Krishi Vigyan Kendra Sonipat
+                  {language === 'hi'
+                    ? 'प्रमुख, धान्य फसल रोग निगरानी प्रकोष्ठ • कृषि विज्ञान केंद्र सोनीपत'
+                    : 'Head, Cereal Disease Surveillance Unit • Krishi Vigyan Kendra Sonipat'}
                 </p>
               </div>
 
@@ -171,8 +190,12 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
 
             {/* Expert Notes */}
             <div className="p-4 rounded-xl bg-white border border-slate-200 text-xs text-slate-700 leading-relaxed font-medium">
-              <strong className="text-slate-900 block mb-1">Expert Remarks & Field Findings:</strong>
-              “Early foliar symptoms are fully consistent with Puccinia triticina (Brown/Leaf Rust). Microscopic sample validation confirmed urediniospores active on flag-leaf margins. Recommended immediate bio-fungicide preventive spray (Trichoderma / NSKE 5%) before incoming rainfall front. Chemical fungicides are strictly unwarranted at this early threshold.”
+              <strong className="text-slate-900 block mb-1">
+                {language === 'hi' ? 'विशेषज्ञ टिप्पणी एवं फील्ड निष्कर्ष:' : 'Expert Remarks & Field Findings:'}
+              </strong>
+              {language === 'hi'
+                ? '“प्रारंभिक पर्ण लक्षण पूरी तरह से पक्सीनिया ट्रिटिसिना (भूरा/पत्ती रतुआ) से मेल खाते हैं। सूक्ष्मदर्शी नमूना जांच में ध्वज-पत्ती के किनारों पर सक्रिय बीजाणुओं की पुष्टि हुई। आगामी वर्षा से पूर्व तत्काल जैविक कवकनाशी (ट्राइकोडर्मा / एनएसकेई 5%) के छिड़काव की सिफारिश की जाती है। इस शुरुआती स्तर पर रासायनिक कवकनाशी की आवश्यकता नहीं है।”'
+                : '“Early foliar symptoms are fully consistent with Puccinia triticina (Brown/Leaf Rust). Microscopic sample validation confirmed urediniospores active on flag-leaf margins. Recommended immediate bio-fungicide preventive spray (Trichoderma / NSKE 5%) before incoming rainfall front. Chemical fungicides are strictly unwarranted at this early threshold.”'}
             </div>
           </div>
 
@@ -185,8 +208,14 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
                 <span className="text-[8px] text-emerald-600">AUDITED</span>
               </div>
               <div className="text-xs">
-                <p className="font-black text-slate-800">Digitally Cryptographically Signed</p>
-                <p className="text-slate-400 text-[11px]">Valid across Central & State Crop Insurance claims</p>
+                <p className="font-black text-slate-800">
+                  {language === 'hi' ? 'डिजिटल क्रिप्टोग्राफिक हस्ताक्षर युक्त' : 'Digitally Cryptographically Signed'}
+                </p>
+                <p className="text-slate-400 text-[11px]">
+                  {language === 'hi'
+                    ? 'केंद्रीय एवं राज्य फसल बीमा दावों के लिए पूर्ण मान्य'
+                    : 'Valid across Central & State Crop Insurance claims'}
+                </p>
               </div>
             </div>
 
@@ -197,7 +226,7 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
                 className="bg-white hover:bg-slate-50 text-slate-800 border border-gray-300 font-bold px-4 py-2 rounded-xl text-xs flex items-center space-x-1.5 transition-colors cursor-pointer"
               >
                 <Printer size={15} />
-                <span>Print Certificate</span>
+                <span>{language === 'hi' ? 'सर्टिफिकेट प्रिंट करें' : 'Print Certificate'}</span>
               </button>
 
               <button
@@ -205,7 +234,7 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
                 className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center space-x-1.5 transition-all shadow-md shadow-emerald-200 cursor-pointer"
               >
                 <Share2 size={15} />
-                <span>Share / WhatsApp</span>
+                <span>{language === 'hi' ? 'शेयर / व्हाट्सएप' : 'Share / WhatsApp'}</span>
               </button>
             </div>
           </div>
@@ -214,7 +243,7 @@ export const ExpertVerificationPage: React.FC<ExpertVerificationPageProps> = ({
 
       {showShareToast && (
         <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-xl animate-in fade-in">
-          Link copied to clipboard!
+          {language === 'hi' ? 'लिंक क्लिपबोर्ड पर कॉपी हो गया!' : 'Link copied to clipboard!'}
         </div>
       )}
     </div>

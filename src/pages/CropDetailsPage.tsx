@@ -13,25 +13,28 @@ import {
   History,
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
-import { CropInfo, PageId } from '../types';
+import { CropInfo, PageId, Language } from '../types';
+import { getSavedLanguage } from '../i18n';
 
 interface CropDetailsPageProps {
   crop: CropInfo;
+  language?: Language;
   onNavigate: (page: PageId) => void;
 }
 
-const HISTORICAL_RISK = [
-  { week: 'Week 1', health: 92, risk: 20 },
-  { week: 'Week 2', health: 89, risk: 25 },
-  { week: 'Week 3', health: 85, risk: 35 },
-  { week: 'Week 4', health: 82, risk: 48 },
-  { week: 'Week 5', health: 78, risk: 62 },
-];
-
 export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
   crop,
+  language = getSavedLanguage(),
   onNavigate,
 }) => {
+  const historicalData = [
+    { week: language === 'hi' ? 'सप्ताह 1' : 'Week 1', health: 92, risk: 20 },
+    { week: language === 'hi' ? 'सप्ताह 2' : 'Week 2', health: 89, risk: 25 },
+    { week: language === 'hi' ? 'सप्ताह 3' : 'Week 3', health: 85, risk: 35 },
+    { week: language === 'hi' ? 'सप्ताह 4' : 'Week 4', health: 82, risk: 48 },
+    { week: language === 'hi' ? 'सप्ताह 5' : 'Week 5', health: 78, risk: 62 },
+  ];
+
   return (
     <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-300">
       {/* Top back button */}
@@ -40,7 +43,7 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
         className="inline-flex items-center space-x-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 bg-white border border-gray-200 px-3 py-1.5 rounded-xl shadow-2xs transition-colors cursor-pointer"
       >
         <ArrowLeft size={14} />
-        <span>Back to My Crops</span>
+        <span>{language === 'hi' ? 'मेरी फसलों पर वापस जाएं' : 'Back to My Crops'}</span>
       </button>
 
       {/* Main Crop Header Card */}
@@ -49,7 +52,7 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
           <div>
             <div className="flex items-center space-x-2">
               <span className="text-xs font-black uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">
-                Active Plot
+                {language === 'hi' ? 'सक्रिय खेत' : 'Active Plot'}
               </span>
               <span className="text-xs text-slate-400 font-semibold">{crop.localName}</span>
             </div>
@@ -57,7 +60,9 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
               {crop.name} ({crop.variety})
             </h2>
             <p className="text-slate-500 text-xs mt-1">
-              Plot Location: Field Block B, Murthal North, Sonipat
+              {language === 'hi'
+                ? 'खेत का स्थान: ब्लॉक बी, मुरथल उत्तर, सोनीपत'
+                : 'Plot Location: Field Block B, Murthal North, Sonipat'}
             </p>
           </div>
 
@@ -66,7 +71,7 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
             className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2.5 rounded-2xl text-xs flex items-center space-x-2 shadow-md shadow-emerald-200 transition-all cursor-pointer self-start"
           >
             <Camera size={16} />
-            <span>Scan This Plot</span>
+            <span>{language === 'hi' ? 'इस खेत की जांच करें' : 'Scan This Plot'}</span>
           </button>
         </div>
 
@@ -74,21 +79,21 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-6">
           <div className="bg-[#F7FAF7] p-4 rounded-2xl border border-gray-100">
             <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider block">
-              Plot Size
+              {language === 'hi' ? 'खेत का रकबा' : 'Plot Size'}
             </span>
             <p className="text-lg font-black text-slate-900 mt-0.5">{crop.area}</p>
           </div>
 
           <div className="bg-[#F7FAF7] p-4 rounded-2xl border border-gray-100">
             <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider block">
-              Sowing Date
+              {language === 'hi' ? 'बुवाई तिथि' : 'Sowing Date'}
             </span>
             <p className="text-lg font-black text-slate-900 mt-0.5">{crop.sowingDate}</p>
           </div>
 
           <div className="bg-[#F7FAF7] p-4 rounded-2xl border border-gray-100">
             <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider block">
-              Growth Stage
+              {language === 'hi' ? 'विकास अवस्था' : 'Growth Stage'}
             </span>
             <p className="text-lg font-black text-emerald-700 mt-0.5 truncate">
               {crop.growthStage.split('(')[0]}
@@ -97,7 +102,7 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
 
           <div className="bg-[#F7FAF7] p-4 rounded-2xl border border-gray-100">
             <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider block">
-              Health Score
+              {language === 'hi' ? 'स्वास्थ्य स्कोर' : 'Health Score'}
             </span>
             <p className="text-lg font-black text-slate-900 mt-0.5">
               {crop.healthScore} <span className="text-xs text-slate-400">/ 100</span>
@@ -111,20 +116,22 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
             <div>
               <h3 className="text-sm font-black text-slate-900 uppercase tracking-tight flex items-center">
                 <History size={16} className="text-emerald-600 mr-2" />
-                Personalized Risk & Health History
+                {language === 'hi' ? 'व्यक्तिगत जोखिम व स्वास्थ्य इतिहास' : 'Personalized Risk & Health History'}
               </h3>
               <p className="text-xs text-slate-400">
-                5-Week health score vs spore exposure risk trajectory
+                {language === 'hi'
+                  ? '5 सप्ताह का स्वास्थ्य स्कोर बनाम रोग जोखिम प्रक्षेपवक्र'
+                  : '5-Week health score vs spore exposure risk trajectory'}
               </p>
             </div>
             <span className="text-xs font-bold text-amber-600">
-              Risk climbing due to regional humidity
+              {language === 'hi' ? 'क्षेत्रीय आर्द्रता के कारण जोखिम बढ़ रहा है' : 'Risk climbing due to regional humidity'}
             </span>
           </div>
 
           <div className="h-48 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={HISTORICAL_RISK}>
+              <AreaChart data={historicalData}>
                 <defs>
                   <linearGradient id="plotRisk" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#EF4444" stopOpacity={0.25} />
@@ -134,7 +141,14 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
                 <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fontSize: 11 }} />
                 <YAxis domain={[0, 100]} axisLine={false} tickLine={false} tick={{ fontSize: 11 }} />
                 <Tooltip />
-                <Area type="monotone" dataKey="risk" stroke="#DC2626" strokeWidth={2.5} fill="url(#plotRisk)" name="Threat Index" />
+                <Area
+                  type="monotone"
+                  dataKey="risk"
+                  stroke="#DC2626"
+                  strokeWidth={2.5}
+                  fill="url(#plotRisk)"
+                  name={language === 'hi' ? 'जोखिम सूचकांक' : 'Threat Index'}
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -143,7 +157,7 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
         {/* Recent Scans Section */}
         <div className="mt-8 pt-6 border-t border-gray-100">
           <h3 className="text-sm font-black text-slate-900 uppercase tracking-tight mb-4">
-            Recent Scans & Foliar Logs
+            {language === 'hi' ? 'हालिया जांच और पत्ती लॉग' : 'Recent Scans & Foliar Logs'}
           </h3>
 
           <div className="space-y-3">
@@ -161,15 +175,18 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
                   />
                   <div>
                     <h4 className="text-xs font-bold text-slate-900">{scan.diagnosis}</h4>
-                    <p className="text-[11px] text-slate-400">{scan.date} • Severity: {scan.severity}</p>
+                    <p className="text-[11px] text-slate-400">
+                      {scan.date} • {language === 'hi' ? 'तीव्रता: ' : 'Severity: '}
+                      {scan.severity === 'None' && language === 'hi' ? 'कोई नहीं' : scan.severity}
+                    </p>
                   </div>
                 </div>
 
                 <button
                   onClick={() => onNavigate('scan')}
-                  className="text-xs font-bold text-emerald-700 hover:text-emerald-800"
+                  className="text-xs font-bold text-emerald-700 hover:text-emerald-800 cursor-pointer"
                 >
-                  View Scan Details →
+                  {language === 'hi' ? 'जांच विवरण देखें →' : 'View Scan Details →'}
                 </button>
               </div>
             ))}
@@ -180,13 +197,17 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
         <div className="mt-8 p-5 rounded-2xl bg-emerald-50 border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <span className="text-[10px] font-black uppercase text-emerald-800 tracking-wider">
-              Agronomic Advisory
+              {language === 'hi' ? 'कृषि वैज्ञानिक परामर्श' : 'Agronomic Advisory'}
             </span>
             <h4 className="text-sm font-black text-emerald-950">
-              RECOMMENDED NEXT STEP: Foliar Inspection & Canopy Aeration
+              {language === 'hi'
+                ? 'अनुशंसित अगला कदम: पत्ती निरीक्षण व हवा संचार'
+                : 'RECOMMENDED NEXT STEP: Foliar Inspection & Canopy Aeration'}
             </h4>
             <p className="text-xs text-emerald-800/90 leading-relaxed">
-              Because Brown Rust is active within 3.2 km, inspect lower leaves before noon today. Avoid nitrogen top-dressing this week.
+              {language === 'hi'
+                ? 'चूंकि 3.2 किमी के भीतर भूरा रतुआ सक्रिय है, आज दोपहर से पहले निचले पत्तों की जांच करें। इस सप्ताह यूरिया (नाइट्रोजन) का अधिक प्रयोग न करें।'
+                : 'Because Brown Rust is active within 3.2 km, inspect lower leaves before noon today. Avoid nitrogen top-dressing this week.'}
             </p>
           </div>
 
@@ -194,7 +215,7 @@ export const CropDetailsPage: React.FC<CropDetailsPageProps> = ({
             onClick={() => onNavigate('action')}
             className="bg-emerald-700 hover:bg-emerald-800 text-white font-black px-4 py-2.5 rounded-xl text-xs shrink-0 transition-colors cursor-pointer"
           >
-            Open Action Plan
+            {language === 'hi' ? 'कार्ययोजना खोलें' : 'Open Action Plan'}
           </button>
         </div>
       </div>

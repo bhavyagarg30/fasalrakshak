@@ -43,25 +43,27 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <span className="text-xs font-black uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
-            Epidemic Containment Protocol
+            {language === 'hi' ? 'महामारी रोकथाम प्रोटोकॉल' : 'Epidemic Containment Protocol'}
           </span>
           <h2 className="text-3xl font-black text-slate-900 mt-2">
-            3-STEP ACTION PLAN
+            {language === 'hi' ? '3-चरणीय कार्ययोजना' : '3-STEP ACTION PLAN'}
           </h2>
           <p className="text-slate-500 text-xs font-medium mt-1">
-            Standard Operating Procedure (SOP) to protect your Wheat plot from the Sonipat Rust Cluster.
+            {language === 'hi'
+              ? 'सोनीपत रतुआ प्रकोप से अपने गेहूं के खेत की सुरक्षा के लिए मानक संचालन प्रक्रिया (SOP)।'
+              : 'Standard Operating Procedure (SOP) to protect your Wheat plot from the Sonipat Rust Cluster.'}
           </p>
         </div>
 
         {/* Multilingual Toggle Bar */}
         <div className="flex items-center space-x-2 bg-white p-1.5 rounded-2xl border border-gray-200 shadow-2xs">
           <Languages size={15} className="text-emerald-700 ml-1.5" />
-          <span className="text-xs font-bold text-slate-500">Language:</span>
+          <span className="text-xs font-bold text-slate-500">{language === 'hi' ? 'भाषा:' : 'Language:'}</span>
           {(['en', 'hi', 'pa'] as const).map((lang) => (
             <button
               key={lang}
               onClick={() => onLanguageChange(lang)}
-              className={`px-3 py-1 text-xs font-bold rounded-xl transition-all ${
+              className={`px-3 py-1 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 language === lang
                   ? 'bg-emerald-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
@@ -76,9 +78,9 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
       {/* Progress Tracker */}
       <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
         <div className="flex justify-between items-center text-xs font-bold text-slate-700 mb-2">
-          <span>Action Plan Progress</span>
+          <span>{language === 'hi' ? 'कार्ययोजना प्रगति' : 'Action Plan Progress'}</span>
           <span className="text-emerald-700 font-black">
-            {completedSteps.length} of 3 Steps Completed
+            {completedSteps.length} / 3 {language === 'hi' ? 'चरण पूरे हुए' : 'Steps Completed'}
           </span>
         </div>
         <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
@@ -112,7 +114,7 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
               </div>
               <div className="space-y-1">
                 <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700">
-                  IMMEDIATE FIELD INSPECTION (NEXT 6 HOURS)
+                  {language === 'hi' ? 'तत्काल खेत निरीक्षण (अगले 6 घंटे)' : 'IMMEDIATE FIELD INSPECTION (NEXT 6 HOURS)'}
                 </span>
                 <h3 className="text-lg font-black text-slate-900">
                   {advisory.step1_title}
@@ -121,9 +123,21 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
                   {advisory.step1_desc}
                 </p>
                 <div className="mt-3 text-[11px] text-slate-500 space-y-1">
-                  <p>• Walk diagonally (W-pattern) across your 2.5-acre Wheat field.</p>
-                  <p>• Inspect lower 3-5 leaves per plant for tiny orange-brown circular pustules.</p>
-                  <p>• If rust spots rub off on your fingers as orange powder, isolate the spot.</p>
+                  <p>
+                    {language === 'hi'
+                      ? '• अपने गेहूं के खेत में तिरछा (W-पैटर्न) चलकर निरीक्षण करें।'
+                      : '• Walk diagonally (W-pattern) across your 2.5-acre Wheat field.'}
+                  </p>
+                  <p>
+                    {language === 'hi'
+                      ? '• प्रति पौधे नीचे की 3-5 पत्तियों पर छोटे नारंगी-भूरे गोल धब्बों की जांच करें।'
+                      : '• Inspect lower 3-5 leaves per plant for tiny orange-brown circular pustules.'}
+                  </p>
+                  <p>
+                    {language === 'hi'
+                      ? '• यदि धब्बों को छूने पर उंगली पर नारंगी पाउडर जैसा लगे, तो उस पौधे को तुरंत अलग पहचानें।'
+                      : '• If rust spots rub off on your fingers as orange powder, isolate the spot.'}
+                  </p>
                 </div>
               </div>
             </div>
@@ -137,7 +151,11 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
               }`}
             >
               <CheckCircle2 size={15} />
-              <span>{completedSteps.includes(1) ? 'Completed' : 'Mark Done'}</span>
+              <span>
+                {completedSteps.includes(1)
+                  ? language === 'hi' ? 'पूर्ण' : 'Completed'
+                  : language === 'hi' ? 'पूर्ण चिह्नित करें' : 'Mark Done'}
+              </span>
             </button>
           </div>
         </div>
@@ -163,7 +181,9 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
               </div>
               <div className="space-y-1">
                 <span className="text-[10px] font-black uppercase tracking-wider text-amber-700">
-                  PREVENTIVE & ECO-FRIENDLY MEASURES (NEXT 24 HOURS)
+                  {language === 'hi'
+                    ? 'निवारक व पर्यावरण-अनुकूल उपाय (अगले 24 घंटे)'
+                    : 'PREVENTIVE & ECO-FRIENDLY MEASURES (NEXT 24 HOURS)'}
                 </span>
                 <h3 className="text-lg font-black text-slate-900">
                   {advisory.step2_title}
@@ -176,16 +196,30 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
                 <div className="bg-emerald-50/80 p-4 rounded-2xl border border-emerald-200/80 mt-3 space-y-2">
                   <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 flex items-center">
                     <Leaf size={14} className="mr-1 text-emerald-600" />
-                    RECOMMENDED ECO-FRIENDLY & BIOLOGICAL SOLUTIONS
+                    {language === 'hi'
+                      ? 'अनुशंसित जैविक व पर्यावरण-अनुकूल समाधान'
+                      : 'RECOMMENDED ECO-FRIENDLY & BIOLOGICAL SOLUTIONS'}
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
                     <div className="bg-white p-2.5 rounded-xl border border-emerald-100">
-                      <strong className="text-emerald-950 block">Neem Seed Extract (NSKE 5%)</strong>
-                      <span className="text-[11px] text-slate-500">Natural antifungal shield against spore germination.</span>
+                      <strong className="text-emerald-950 block">
+                        {language === 'hi' ? 'नीम बीज अर्क (NSKE 5%)' : 'Neem Seed Extract (NSKE 5%)'}
+                      </strong>
+                      <span className="text-[11px] text-slate-500">
+                        {language === 'hi'
+                          ? 'रोग बीजाणुओं के अंकुरण के खिलाफ प्राकृतिक फफूंदनाशक सुरक्षा कवच।'
+                          : 'Natural antifungal shield against spore germination.'}
+                      </span>
                     </div>
                     <div className="bg-white p-2.5 rounded-xl border border-emerald-100">
-                      <strong className="text-emerald-950 block">Trichoderma viride Bio-fungicide</strong>
-                      <span className="text-[11px] text-slate-500">Biological parasite of pathogenic rust mycelium.</span>
+                      <strong className="text-emerald-950 block">
+                        {language === 'hi' ? 'ट्राइकोडर्मा विरिडे जैव-कवकनाशी' : 'Trichoderma viride Bio-fungicide'}
+                      </strong>
+                      <span className="text-[11px] text-slate-500">
+                        {language === 'hi'
+                          ? 'रोगजनक रतुआ कवक को नष्ट करने वाला जैविक परजीवी कवक।'
+                          : 'Biological parasite of pathogenic rust mycelium.'}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -201,7 +235,11 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
               }`}
             >
               <CheckCircle2 size={15} />
-              <span>{completedSteps.includes(2) ? 'Completed' : 'Mark Done'}</span>
+              <span>
+                {completedSteps.includes(2)
+                  ? language === 'hi' ? 'पूर्ण' : 'Completed'
+                  : language === 'hi' ? 'पूर्ण चिह्नित करें' : 'Mark Done'}
+              </span>
             </button>
           </div>
         </div>
@@ -227,7 +265,9 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
               </div>
               <div className="space-y-1">
                 <span className="text-[10px] font-black uppercase tracking-wider text-blue-700">
-                  FOLLOW-UP & SURVEILLANCE SCHEDULE (DAY 3 & DAY 7)
+                  {language === 'hi'
+                    ? 'अनुवर्ती निगरानी समय-सारणी (दिन 3 और दिन 7)'
+                    : 'FOLLOW-UP & SURVEILLANCE SCHEDULE (DAY 3 & DAY 7)'}
                 </span>
                 <h3 className="text-lg font-black text-slate-900">
                   {advisory.step3_title}
@@ -236,9 +276,21 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
                   {advisory.step3_desc}
                 </p>
                 <div className="mt-3 text-[11px] text-slate-500 space-y-1">
-                  <p>• Perform re-scan in FasalRakshak app 48 hours after foliar treatment.</p>
-                  <p>• Verify rust status with Sonipat KVK field officers.</p>
-                  <p>• Log any newly noticed pustules into Community Intelligence map.</p>
+                  <p>
+                    {language === 'hi'
+                      ? '• पत्ती उपचार के 48 घंटे बाद फसल रक्षक ऐप में पुनः जांच करें।'
+                      : '• Perform re-scan in FasalRakshak app 48 hours after foliar treatment.'}
+                  </p>
+                  <p>
+                    {language === 'hi'
+                      ? '• कृषि विज्ञान केंद्र (KVK) अधिकारियों से रतुआ की स्थिति सत्यापित कराएं।'
+                      : '• Verify rust status with Sonipat KVK field officers.'}
+                  </p>
+                  <p>
+                    {language === 'hi'
+                      ? '• कोई भी नया लक्षण दिखने पर सामुदायिक निगरानी मानचित्र में दर्ज करें।'
+                      : '• Log any newly noticed pustules into Community Intelligence map.'}
+                  </p>
                 </div>
               </div>
             </div>
@@ -252,7 +304,11 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
               }`}
             >
               <CheckCircle2 size={15} />
-              <span>{completedSteps.includes(3) ? 'Completed' : 'Mark Done'}</span>
+              <span>
+                {completedSteps.includes(3)
+                  ? language === 'hi' ? 'पूर्ण' : 'Completed'
+                  : language === 'hi' ? 'पूर्ण चिह्नित करें' : 'Mark Done'}
+              </span>
             </button>
           </div>
         </div>
@@ -262,12 +318,24 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
       <div className="bg-amber-50 border border-amber-200 rounded-3xl p-6 text-xs text-amber-900 space-y-2">
         <h4 className="font-black text-sm text-amber-950 flex items-center">
           <AlertTriangle size={16} className="text-amber-700 mr-2" />
-          Safe Spraying & Applicator Precautions
+          {language === 'hi' ? 'सुरक्षित छिड़काव एवं सावधानियां' : 'Safe Spraying & Applicator Precautions'}
         </h4>
         <ul className="list-disc list-inside space-y-1 text-amber-800/90 leading-relaxed">
-          <li>Always spray during calm early mornings (before 9 AM) or late evenings to minimize wind drift and protect honeybees.</li>
-          <li>Wear protective mask, gloves, and boots. Never eat or drink while handling biological or chemical solutions.</li>
-          <li>Calibrate sprayer nozzles uniformly; avoid overlapping swaths or excessive runoff onto ground water.</li>
+          <li>
+            {language === 'hi'
+              ? 'हवा के बहाव को रोकने और मधुमक्खियों की रक्षा के लिए हमेशा शांत सुबह (प्रातः 9 बजे से पहले) या देर शाम को ही छिड़काव करें।'
+              : 'Always spray during calm early mornings (before 9 AM) or late evenings to minimize wind drift and protect honeybees.'}
+          </li>
+          <li>
+            {language === 'hi'
+              ? 'सुरक्षात्मक मास्क, दस्ताने और जूते पहनें। जैविक या रासायनिक घोल का उपयोग करते समय कभी भी भोजन या पेय पदार्थ न लें।'
+              : 'Wear protective mask, gloves, and boots. Never eat or drink while handling biological or chemical solutions.'}
+          </li>
+          <li>
+            {language === 'hi'
+              ? 'स्प्रेयर नोजल को समान रूप से सेट करें; अत्यधिक बहाव या भूजल में रिसाव से बचें।'
+              : 'Calibrate sprayer nozzles uniformly; avoid overlapping swaths or excessive runoff onto ground water.'}
+          </li>
         </ul>
       </div>
 
@@ -278,14 +346,14 @@ export const ActionPlanPage: React.FC<ActionPlanPageProps> = ({
           className="text-xs font-bold text-slate-600 hover:text-slate-900 flex items-center space-x-1.5 cursor-pointer"
         >
           <Printer size={15} />
-          <span>Print Action Plan Checklist</span>
+          <span>{language === 'hi' ? 'कार्ययोजना चेकलिस्ट प्रिंट करें' : 'Print Action Plan Checklist'}</span>
         </button>
 
         <button
           onClick={() => onNavigate('simulator')}
           className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center space-x-1 shadow-md shadow-emerald-200 transition-all cursor-pointer"
         >
-          <span>Test in What-If Simulator</span>
+          <span>{language === 'hi' ? 'सिम्युलेटर में परीक्षण करें' : 'Test in What-If Simulator'}</span>
           <ChevronRight size={14} />
         </button>
       </div>

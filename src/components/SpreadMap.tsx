@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   ShieldAlert,
   Wind,
@@ -14,6 +14,114 @@ import {
 } from 'lucide-react';
 import { OutbreakCluster } from '../types';
 import { OUTBREAK_CLUSTERS } from '../data/demoData';
+
+interface ClusterRiskCardProps {
+  cluster: OutbreakCluster;
+  onSelect?: (cluster: OutbreakCluster) => void;
+  className?: string;
+}
+
+export const ClusterRiskCard: React.FC<ClusterRiskCardProps> = ({
+  cluster,
+  onSelect,
+  className = '',
+}) => {
+  const getStatusColor = (status: OutbreakCluster['status']) => {
+    switch (status) {
+      case 'Confirmed':
+        return { fill: '#DC2626', ring: 'rgba(220, 38, 38, 0.25)' };
+      case 'Predicted Spread':
+        return { fill: '#EA580C', ring: 'rgba(234, 88, 12, 0.25)' };
+      case 'At Risk':
+        return { fill: '#EAB308', ring: 'rgba(234, 179, 8, 0.25)' };
+      case 'Low Risk':
+      default:
+        return { fill: '#16A34A', ring: 'rgba(22, 163, 74, 0.25)' };
+    }
+  };
+
+  return (
+    <div
+      className={`box-border bg-slate-900/95 backdrop-blur-xl border border-slate-700/90 rounded-2xl p-3.5 sm:p-4 md:p-5 shadow-2xl text-white transition-all ${className}`}
+      style={{ boxSizing: 'border-box' }}
+    >
+      {/* Header: Status, Crop, Threat, Region, Risk Badge, Reports */}
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5 sm:gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center space-x-2">
+            <span
+              className="w-2.5 h-2.5 rounded-full shrink-0"
+              style={{ backgroundColor: getStatusColor(cluster.status).fill }}
+            />
+            <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+              {cluster.status} • {cluster.crop}
+            </span>
+          </div>
+          <h4 className="text-base sm:text-lg font-black text-white mt-1 leading-snug break-words">
+            {cluster.threatName}
+          </h4>
+          <p className="text-xs text-emerald-400 font-medium mt-0.5 break-words">
+            {cluster.region}
+          </p>
+        </div>
+
+        <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-1.5 shrink-0 pt-0.5 sm:pt-0">
+          <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-black uppercase bg-red-950/90 text-red-400 border border-red-800/80 whitespace-nowrap shadow-xs">
+            {cluster.currentRisk.toUpperCase()} RISK
+          </span>
+          <p className="text-[11px] text-slate-400 font-medium whitespace-nowrap">
+            {cluster.reportsCount} Nearby Reports
+          </p>
+        </div>
+      </div>
+
+      {/* 3 Metric Cards: Responsive 1-col on mobile, 3-col on sm+ */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 mt-3.5 pt-3 border-t border-slate-800/80">
+        <div className="bg-slate-800/60 border border-slate-700/40 p-2.5 rounded-xl flex sm:flex-col justify-between sm:justify-start items-center sm:items-start gap-1">
+          <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+            Spread Radius
+          </span>
+          <span className="font-black text-white text-xs sm:text-sm tracking-tight">
+            {cluster.predictedSpreadKm} km
+          </span>
+        </div>
+        <div className="bg-slate-800/60 border border-slate-700/40 p-2.5 rounded-xl flex sm:flex-col justify-between sm:justify-start items-center sm:items-start gap-1">
+          <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+            Spread Vector
+          </span>
+          <span className="font-black text-white text-xs sm:text-sm tracking-tight">
+            {cluster.windSpeed}
+          </span>
+        </div>
+        <div className="bg-slate-800/60 border border-slate-700/40 p-2.5 rounded-xl flex sm:flex-col justify-between sm:justify-start items-center sm:items-start gap-1">
+          <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+            Crop Stage
+          </span>
+          <span className="font-black text-white text-xs sm:text-sm tracking-tight">
+            {cluster.cropStage.split('(')[0].trim()}
+          </span>
+        </div>
+      </div>
+
+      {/* Description & Action Button: Clean wrapping, no overlap */}
+      <div className="mt-3.5 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <p className="text-xs sm:text-sm text-slate-300 italic leading-relaxed break-words flex-1">
+          "{cluster.description}"
+        </p>
+        {onSelect && (
+          <button
+            type="button"
+            onClick={() => onSelect(cluster)}
+            className="shrink-0 self-start sm:self-center bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-colors flex items-center shadow-sm cursor-pointer whitespace-nowrap"
+          >
+            <span>View Details</span>
+            <ChevronRight size={14} className="ml-1" />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
 
 interface SpreadMapProps {
   onSelectCluster?: (cluster: OutbreakCluster) => void;
@@ -37,6 +145,16 @@ export const SpreadMap: React.FC<SpreadMapProps> = ({
   const [activeCluster, setActiveCluster] = useState<OutbreakCluster>(() => {
     return OUTBREAK_CLUSTERS.find((c) => c.id === selectedClusterId) || OUTBREAK_CLUSTERS[0];
   });
+
+  // Keep active cluster in sync if selectedClusterId changes externally
+  useEffect(() => {
+    if (selectedClusterId) {
+      const match = OUTBREAK_CLUSTERS.find((c) => c.id === selectedClusterId);
+      if (match) {
+        setActiveCluster(match);
+      }
+    }
+  }, [selectedClusterId]);
 
   // Filter application
   const filteredClusters = useMemo(() => {
@@ -88,13 +206,13 @@ export const SpreadMap: React.FC<SpreadMapProps> = ({
 
   const handleClusterClick = (cluster: OutbreakCluster) => {
     setActiveCluster(cluster);
-    if (onSelectCluster) {
+    if (!isCompact && onSelectCluster) {
       onSelectCluster(cluster);
     }
   };
 
   return (
-    <div className={`relative flex flex-col bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 text-white shadow-xl ${isCompact ? 'h-96' : 'min-h-[580px]'}`}>
+    <div className={`relative flex flex-col bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 text-white shadow-xl w-full ${isCompact ? '' : 'min-h-[580px]'}`}>
       {/* Top Map Header & Filters Bar (Only if not compact) */}
       {!isCompact && (
         <div className="bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80 p-3.5 px-5 flex flex-wrap items-center justify-between gap-3 z-10">
@@ -180,7 +298,11 @@ export const SpreadMap: React.FC<SpreadMapProps> = ({
       )}
 
       {/* Main Interactive GIS Canvas */}
-      <div className="relative flex-1 w-full overflow-hidden select-none bg-[#0B132B]">
+      <div
+        className={`relative w-full overflow-hidden select-none bg-[#0B132B] ${
+          isCompact ? 'h-72 sm:h-80' : 'flex-1 min-h-[440px] md:min-h-[500px]'
+        }`}
+      >
         {/* Background GIS Grid Pattern */}
         <div
           className="absolute inset-0 opacity-15 pointer-events-none"
@@ -355,69 +477,22 @@ export const SpreadMap: React.FC<SpreadMapProps> = ({
           })}
         </div>
 
-        {/* Selected Cluster Bottom Card Overlay */}
-        {activeCluster && (
-          <div className="absolute bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md z-30 bg-slate-900/95 backdrop-blur-xl border border-slate-700/90 rounded-2xl p-4 shadow-2xl animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="flex items-center space-x-2">
-                  <span
-                    className="w-2.5 h-2.5 rounded-full"
-                    style={{ backgroundColor: getStatusColor(activeCluster.status).fill }}
-                  />
-                  <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                    {activeCluster.status} • {activeCluster.crop}
-                  </span>
-                </div>
-                <h4 className="text-base font-black text-white mt-0.5">
-                  {activeCluster.threatName}
-                </h4>
-                <p className="text-xs text-emerald-400 font-medium">
-                  {activeCluster.region}
-                </p>
-              </div>
-
-              <div className="text-right">
-                <span className="inline-block px-2 py-0.5 rounded text-[10px] font-black uppercase bg-red-950 text-red-400 border border-red-800">
-                  {activeCluster.currentRisk} Risk
-                </span>
-                <p className="text-[11px] text-slate-400 font-medium mt-1">
-                  {activeCluster.reportsCount} Nearby Reports
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-slate-800 text-[11px]">
-              <div className="bg-slate-800/60 p-2 rounded-xl">
-                <p className="text-[10px] text-slate-400">Spread Radius</p>
-                <p className="font-bold text-white">{activeCluster.predictedSpreadKm} km</p>
-              </div>
-              <div className="bg-slate-800/60 p-2 rounded-xl">
-                <p className="text-[10px] text-slate-400">Spread Vector</p>
-                <p className="font-bold text-white truncate">{activeCluster.windSpeed}</p>
-              </div>
-              <div className="bg-slate-800/60 p-2 rounded-xl">
-                <p className="text-[10px] text-slate-400">Crop Stage</p>
-                <p className="font-bold text-white truncate">{activeCluster.cropStage.split('(')[0]}</p>
-              </div>
-            </div>
-
-            <div className="mt-3 flex items-center justify-between gap-2">
-              <p className="text-[11px] text-slate-300 line-clamp-1 italic">
-                "{activeCluster.description}"
-              </p>
-              {onSelectCluster && (
-                <button
-                  onClick={() => onSelectCluster(activeCluster)}
-                  className="shrink-0 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition-colors flex items-center"
-                >
-                  View Details <ChevronRight size={14} className="ml-1" />
-                </button>
-              )}
-            </div>
+        {/* Selected Cluster Overlay (Only for Desktop on Full Map view) */}
+        {!isCompact && activeCluster && (
+          <div className="hidden lg:block lg:absolute lg:bottom-4 lg:right-4 z-30 w-[min(90vw,560px)] max-w-[560px] max-h-[calc(100%-2rem)] overflow-y-auto animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <ClusterRiskCard cluster={activeCluster} onSelect={onSelectCluster} />
           </div>
         )}
       </div>
+
+      {/* Inline Risk Card: Always for Compact Mode (Dashboard), and on Mobile/Tablet (< lg) for Full Map */}
+      {activeCluster && (
+        <div className={`p-3.5 sm:p-4 md:p-5 bg-slate-950/70 border-t border-slate-800 ${!isCompact ? 'lg:hidden' : ''}`}>
+          <div className="w-full max-w-[560px] mx-auto">
+            <ClusterRiskCard cluster={activeCluster} onSelect={onSelectCluster} />
+          </div>
+        </div>
+      )}
 
       {/* Map Bottom Footer Note */}
       <div className="bg-slate-950 px-4 py-2 text-[10px] text-slate-400 flex flex-wrap items-center justify-between border-t border-slate-800">
